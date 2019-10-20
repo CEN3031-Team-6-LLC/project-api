@@ -1,9 +1,11 @@
-var config = require('./config'), 
+var 
+    // config = require('./config'), 
     express = require('./express');
 
 module.exports.start = function() {
   var app = express.init();
-  app.listen(config.port, function() {
-    console.log('App.js file is listening on port', config.port);
+  var port = 8080; //config.port;
+  app.listen(port, function() {
+    console.log('App.js file is listening on port', port);
   });
 };
