@@ -1,8 +1,9 @@
 // var server = app.start();
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
-const mongoose = require('mongoose');
-const config = require('./server/config/config');
+// uncomment for db access
+// const mongoose = require('mongoose');
+// const config = require('./server/config/config');
 
 
 if (cluster.isMaster) {
