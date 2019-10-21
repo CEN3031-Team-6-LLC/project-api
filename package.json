@@ -1,9 +1,9 @@
 {
-  "name": "Bootcamp3",
-  "version": "3.0.0",
+  "name": "project-api",
+  "version": "0.0.1",
   "description": "Routing server-side requests using ExpressJS",
   "main": "server.js",
-  "author": "Medhir Bhargava & Christina Gardner-McCune",
+  "author": "CEN 3031 Group 6",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -14,6 +14,9 @@
     "request": "^2.88.0",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node server.js"
   },
   "devDependencies": {}
 }
