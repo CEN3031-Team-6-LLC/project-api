@@ -1,7 +1,8 @@
 var path = require('path'),  
     express = require('express'),
     morgan = require('morgan'),
-    testRouter = require('../routes/test.server.routes');
+    testRouter = require('../routes/test.server.routes'),
+    calculationRouter = require('../routes/calculation.server.routes'),
     bodyParser = require('body-parser');
 
 module.exports.init = function() {
@@ -17,6 +18,9 @@ module.exports.init = function() {
 
   // test api
   app.use('/api/test', testRouter);
+
+  // calculations
+  app.use('/api/calculate', calculationRouter);
 
   app.all('/*', function(req, res) {
     res.sendFile(path.resolve('client/index.html'));
