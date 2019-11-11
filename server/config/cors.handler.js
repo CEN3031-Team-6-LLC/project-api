@@ -1,4 +1,4 @@
-const config = require("./config.js");
+const config = process.env.NODE_ENV == "PROD" ? {} : require("./config.js");
 
 // middleware to configure CORS handling
 
