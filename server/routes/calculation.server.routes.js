@@ -1,31 +1,16 @@
 var express = require("express"),
   controller = require("../controllers/calculation.server.controller.js"),
+  cors_handler = require("../config/cors.handler.js");
   router = express.Router();
 
 router
   .route("/fire")
-  .post(controller.calculateFire)
-  .options((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "POST");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, Accept"
-    );
-    res.send();
-  });
+  .post(controller.calculateFire, cors_handler.CORS_respond)
+  .options(cors_handler.CORS_handshake);
 
 router
   .route("/plume")
-  .post(controller.calculateGeneralPlume)
-  .options((req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "POST");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, Accept"
-    );
-    res.send();
-  });
+  .post(controller.calculateGeneralPlume, cors_handler.CORS_respond)
+  .options(cors_handler.CORS_handshake);
 
 module.exports = router;

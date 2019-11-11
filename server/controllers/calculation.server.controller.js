@@ -1,6 +1,6 @@
 const engine = require("./calculation.engine.controller");
 
-exports.calculateGeneralPlume = function(req, res) {
+exports.calculateGeneralPlume = function(req, res, next) {
   var delta = 1;
   const maxX = 10000;
   var x = 0,
@@ -22,11 +22,11 @@ exports.calculateGeneralPlume = function(req, res) {
       )
     });
   }
-  res.header("Access-Control-Allow-Origin", "*");
-  res.send(data);
+  req.payload = data;
+  next();
 };
 
-exports.calculateFire = function(req, res) {
+exports.calculateFire = function(req, res, next) {
   var delta = 1;
   const maxX = 10000;
   var x = 0,
@@ -48,6 +48,6 @@ exports.calculateFire = function(req, res) {
       )
     });
   }
-  res.header("Access-Control-Allow-Origin", "*");
-  res.send(data);
+  req.payload = data;
+  next();
 };
