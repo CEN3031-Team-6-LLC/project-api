@@ -8,7 +8,7 @@ const numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {
     console.log(`Master ${process.pid} is running in ${process.env.NODE_ENV || "LOCAL"} environmet.`);
-    const config = process.env.NODE_ENV ? {} : require('./server/config/config');
+    const config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/config');
     console.log("The following clients are allowed to usi this API: ", process.env.ALLOWED_UI_DOMAINS || config.allowed_ui_domains);
 
     // workers to process clients' requests
