@@ -5,10 +5,12 @@ const config = process.env.NODE_ENV == "PROD" ? {} : require("./config.js");
 exports.CORS_handshake = function(req, res) {
     res.header("Access-Control-Allow-Origin", process.env.ALLOWED_UI_DOMAINS || config.allowed_ui_domains);
     res.header("Access-Control-Allow-Methods", "POST");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, Accept"
-    );
+    response.header("Access-Control-Allow-Headers", 
+        "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    // res.header(
+    //   "Access-Control-Allow-Headers",
+    //   "Content-Type, Authorization, Accept"
+    // );
     res.send();
 }
 
