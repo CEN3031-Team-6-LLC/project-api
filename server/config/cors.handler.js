@@ -7,10 +7,6 @@ exports.CORS_handshake = function(req, res) {
     res.header("Access-Control-Allow-Methods", "POST");
     res.header("Access-Control-Allow-Headers", 
         "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin");
-    // res.header(
-    //   "Access-Control-Allow-Headers",
-    //   "Content-Type, Authorization, Accept"
-    // );
     res.send();
 }
 
