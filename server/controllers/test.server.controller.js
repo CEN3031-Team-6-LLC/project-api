@@ -1,5 +1,5 @@
 exports.hello = function(req, res) {
-  res.send('Hello world!');
+  res.send('Hello world! ');
 };
 
 exports.helloDude = function(req, res) {
