@@ -14,7 +14,7 @@ const allowedOrigins = [
 const corsFunction = (origin, callback) => {
   console.log(`${origin} is making a request`);
 
-  if (!origin) callback(null, true);
+  if (!origin) return callback(null, true);
 
   if (allowedOrigins.indexOf(origin) === -1) {
     var msg =
