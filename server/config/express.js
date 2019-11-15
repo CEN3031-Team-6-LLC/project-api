@@ -12,6 +12,7 @@ const allowedOrigins = [
 ];
 
 const corsFunction = (origin, callback) => {
+  console.log(`${origin} is making a request`);
   if (allowedOrigins.indexOf(origin) === -1) {
     var msg =
       "The CORS policy for this site does not " +
