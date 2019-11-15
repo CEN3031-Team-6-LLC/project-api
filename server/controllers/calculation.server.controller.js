@@ -23,7 +23,7 @@ exports.calculateGeneralPlume = function(req, res, next) {
     });
   }
   req.payload = data;
-  next();
+  res.send(data);
 };
 
 exports.calculateFire = function(req, res, next) {
@@ -49,5 +49,5 @@ exports.calculateFire = function(req, res, next) {
     });
   }
   req.payload = data;
-  next();
+  res.send(data);
 };
