@@ -59,10 +59,12 @@ const sigmaZ = function(stability, x) {
     }
 }
 
-const gaussian = function(stability, x, y, z, H, u, Qt) {
-    var C = Qt / (2 * Math.PI * sigmaY(stability, x) * sigmaZ(stability, x) * u);
-    var exp1Partial = (z - H) / sigmaZ(stability, x);
-    var exp2Partial = (z + H) / sigmaZ(stability, x);
+const gaussian = function(stability, x, receptorHeight, releaseHeight, windSpeed, sourceAmount, fireCloudTop, fireRadius, isFire) {
+    var sY = isFire ? adjustedFireRadius(stability, fireRadius, fireCloudTop)/2 + dY(stability, x) : sigmaY(stability, x);
+    var sZ = isFire ? adjustedFireRadius(stability, fireRadius, fireCloudTop)/2 + dZ(stability, x) : sigmaZ(stability, x);
+    var C = sourceAmount / (2 * Math.PI * sY * sZ * windSpeed);
+    var exp1Partial = (receptorHeight - (isFire ? fireReleaseHeight(fireCloudTop) : releaseHeight)) / sZ;
+    var exp2Partial = (receptorHeight + (isFire ? fireReleaseHeight(fireCloudTop) : releaseHeight)) / sY;
     return C * (Math.exp(-0.5 * Math.pow(exp1Partial , 2)) + Math.exp(-0.5 * Math.pow(exp2Partial , 2)));
 }
 
@@ -71,6 +73,18 @@ const fireReleaseHeight = function(fireCloudTop) {
         return fireCloudTop / 1.42;
     } else {
         return fireCloudTop / (0.00224 * fireCloudTop + 0.964);
+    }
+}
+
+const adjustedFireRadius = function(stability, fireRadius, fireCloudTop) {
+    if (["A", "B", "C", "D"].findIndex(stab => stab === stability) != -1) {
+        if (fireReleaseHeight(fireCloudTop)/3 > fireRadius) {
+            return fireReleaseHeight(fireCloudTop)/3;
+        } else {
+            return 0;
+        }
+    } else {
+        return fireRadius;
     }
 }
 
