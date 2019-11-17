@@ -32,7 +32,7 @@ exports.calculateFire = function(req, res, next) {
     for (x; x <= maxX; x += delta) {
         data.push({
             distance: x,
-            concntration: engine.engine.gaussian(
+            concentration: engine.engine.gaussian(
                 req.body.stability.toUpperCase(),
                 x,
                 req.body.receptorHeight,
