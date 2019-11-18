@@ -3,7 +3,7 @@ const engine = require("./calculation.engine.controller");
 exports.calculateGeneralPlume = function(req, res, next) {
     var delta = 1;
     const maxX = 10000;
-    var x = 0;
+    var x = 1;
     var data = [];
     for (x; x <= maxX; x += delta) {
         data.push({
@@ -27,7 +27,7 @@ exports.calculateGeneralPlume = function(req, res, next) {
 exports.calculateFire = function(req, res, next) {
     var delta = 1;
     const maxX = 10000;
-    var x = 0;
+    var x = 1;
     var data = [];
     for (x; x <= maxX; x += delta) {
         data.push({
