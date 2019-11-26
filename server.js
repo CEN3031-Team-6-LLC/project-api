@@ -1,9 +1,6 @@
-// var server = app.start();
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
-// uncomment for db access
-// const mongoose = require('mongoose');
-// const config = require('./server/config/config');
+const mongoose = require('mongoose');
 
 
 if (cluster.isMaster) {
@@ -17,10 +14,9 @@ if (cluster.isMaster) {
     }
 
     //connect to database
-    // !!!! uncomment to connect to DB
-    // mongoose.connect(config.db.uri, { useNewUrlParser: true });
-    // mongoose.set('useCreateIndex', true);
-    // mongoose.set('useFindAndModify', false);
+    mongoose.connect(process.env.DB_KEY || config.db.uri, { useNewUrlParser: true });
+    mongoose.set('useCreateIndex', true);
+    mongoose.set('useFindAndModify', false);
 
     cluster.on('exit', (worker, code, signal) => {
         console.log(`worker ${worker.process.pid} died`);
