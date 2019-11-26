@@ -22,7 +22,7 @@
 var csv = require("fast-csv");
 var fs = require('fs');
 var mongoose = require('mongoose');
-const config = require('../server/config/config');
+const config = process.env.NODE_ENV == "PROD" ? {} : require('../server/config/config');
 var Nuclide = require('../server/models/Nuclide.schema'),
     NuclideDoses = require('../server/models/NuclideDoses.schema'),
     NuclideICRP = require('../server/models/NuclideICRP.schema');
