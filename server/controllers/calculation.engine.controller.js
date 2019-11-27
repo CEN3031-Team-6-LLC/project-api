@@ -133,4 +133,20 @@ const dZ = function(stability, x) {
     }
 }
 
-exports.engine = { gaussian };
+const lambda = function(halfLife) {
+    return 0.69/halfLife;
+}
+
+const arrivalTime = function(windSpeed, x) {
+    return x/windSpeed;
+}
+
+const adjustment = function(C, lambda, arrivalTime) {
+    return C * Math.exp(-1 * lambda * arrivalTime);
+}
+
+const dose = function(C, effectiveDose, halfLife, windSpeed, x) {
+    return adjustment(C, lambda(halfLife), arrivalTime(windSpeed, x)) * 4.17E-04 * effectiveDose;
+}
+
+exports.engine = { gaussian, dose, arrivalTime };

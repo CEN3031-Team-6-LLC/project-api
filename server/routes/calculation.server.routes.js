@@ -5,12 +5,12 @@ var express = require("express"),
 
 router
   .route("/fire")
-  .post(controller.calculateFire, cors_handler.CORS_respond)
+  .post(controller.resolveNuclideData, controller.calculateFire, cors_handler.CORS_respond)
   .options(cors_handler.CORS_handshake);
 
 router
   .route("/plume")
-  .post(controller.calculateGeneralPlume, cors_handler.CORS_respond)
+  .post(controller.resolveNuclideData, controller.calculateGeneralPlume, cors_handler.CORS_respond)
   .options(cors_handler.CORS_handshake);
 
 module.exports = router;

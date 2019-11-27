@@ -6,12 +6,12 @@ var express = require("express"),
 
 router
   .route("/fire")
-  .post(calcController.calculateFire, jsonToExcelParser.convertPayloadToExcel, cors_handler.CORS_respond)
+  .post(calcController.resolveNuclideData, calcController.calculateFire, jsonToExcelParser.convertPayloadToExcel, cors_handler.CORS_respond)
   .options(cors_handler.CORS_handshake);
 
 router
   .route("/plume")
-  .post(calcController.calculateGeneralPlume, jsonToExcelParser.convertPayloadToExcel, cors_handler.CORS_respond)
+  .post(calcController.resolveNuclideData, calcController.calculateGeneralPlume, jsonToExcelParser.convertPayloadToExcel, cors_handler.CORS_respond)
   .options(cors_handler.CORS_handshake);
 
 module.exports = router;

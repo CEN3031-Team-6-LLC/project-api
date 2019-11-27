@@ -6,8 +6,16 @@ const fields = [
         value: 'distance'
     },
     {
+        label: 'Nuclide dose',
+        value: 'dose'
+    },
+    {
         label: 'Nuclide concentration',
         value: 'concentration'
+    },
+    {
+        label: 'Arrival time',
+        value: 'arrivalTime'
     }
 ];
 
