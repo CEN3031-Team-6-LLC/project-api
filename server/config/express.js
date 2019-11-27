@@ -3,6 +3,8 @@ var path = require('path'),
     morgan = require('morgan'),
     testRouter = require('../routes/test.server.routes'),
     calculationRouter = require('../routes/calculation.server.routes'),
+    exportRouter = require('../routes/exports.server.routes'),
+    nuclidesController = require('../routes/nuclideResolver.server.routes');
     bodyParser = require('body-parser');
 
 module.exports.init = function() {
@@ -21,6 +23,12 @@ module.exports.init = function() {
 
   // calculations
   app.use('/api/calculate', calculationRouter);
+
+  // exports
+  app.use('/api/export', exportRouter);
+
+  // querying data
+  app.use('/api/nuclides', nuclidesController);
 
   app.all('/*', function(req, res) {
     res.sendFile(path.resolve('client/index.html'));
