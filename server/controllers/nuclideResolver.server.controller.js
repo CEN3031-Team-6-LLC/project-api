@@ -11,7 +11,7 @@ exports.getNuclideList = function(req, res, next) {
             req.payload = payload;
             next();
         } else {
-            res.error(err);
+            res.status(500).send(err.message);
         }
     });
 }
@@ -22,7 +22,7 @@ exports.getNuclidesLungClasses = function(req, res, next) {
             req.payload = docs;
             next();
         } else {
-            res.error(err);
+            res.status(500).send(err.message);
         }
     });
 }
@@ -33,7 +33,7 @@ exports.getNuclidesICRPLungClass = function(req, res, next) {
             req.payload = docs && docs.icrp_lung_class ? docs.icrp_lung_class : "NA";
             next();
         } else {
-            res.error(err);
+            res.status(500).send(err.message);
         }
     });
 }

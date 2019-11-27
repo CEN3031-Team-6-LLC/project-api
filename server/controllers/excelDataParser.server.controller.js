@@ -26,7 +26,7 @@ exports.convertPayloadToExcel = function(req, res, next) {
         req.payload = data;
     } catch (err) {
         console.error(err);
-        res.error(err);
+        res.status(500).send(err.message);
     }
     next();
 }

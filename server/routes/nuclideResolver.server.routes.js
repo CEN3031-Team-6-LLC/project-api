@@ -1,7 +1,7 @@
 var express = require("express"),
-  cors_handler = require("../config/cors.handler.js");
-  nuclides = require("../controllers/nuclideResolver.server.controller");
-  router = express.Router();
+    cors_handler = require("../config/cors.handler.js"),
+    nuclides = require("../controllers/nuclideResolver.server.controller"),
+    router = express.Router();
 
 router
     .route("/getNuclideList")
