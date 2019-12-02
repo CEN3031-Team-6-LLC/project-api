@@ -7,9 +7,9 @@ exports.resolveNuclideData = async function(req, res, next) {
         isotop: req.body.isotop,
         lung_class: req.body.lungClass
     }).sort({age: -1}).limit(1).exec())[0].effective_dose;
-    var halfLife = await (await Nuclide.find({
+    var halfLife = await (await Nuclide.findOne({
         isotop: req.body.isotop
-    }).sort({age: -1}).limit(1).exec())[0].half_life;
+    }).exec()).half_life;
     req.body.effectiveDose = effectiveDose;
     req.body.halfLife = halfLife;
     next();
