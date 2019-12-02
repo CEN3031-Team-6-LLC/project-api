@@ -20,13 +20,19 @@ const fields = [
 ];
 
 exports.convertPayloadToExcel = function(req, res, next) {
+    if (req.error) {
+        next();
+        return;
+    }
     try {
         var data = parse(req.payload, { fields: fields });
         res.attachment(`export_${(new Date()).getTime()}.csv`);
         req.payload = data;
     } catch (err) {
         console.error(err);
-        res.status(500).send(err.message);
+        req.error = true;
+        req.payload = err.message;
+        next();
     }
     next();
 }

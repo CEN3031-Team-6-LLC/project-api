@@ -5,7 +5,6 @@ const requiredPlumeFields = [
     "releaseHeight",
     "stability",
     "isotop",
-    "nuclide",
     "lungClass"
 ];
 const requiredFireFields = [
@@ -16,11 +15,14 @@ const requiredFireFields = [
     "fireRadius",
     "stability",
     "isotop",
-    "nuclide",
     "lungClass"
 ];
 
 exports.validateReqestBody = (req, res, next) => {
+    if (req.error) {
+        next();
+        return;
+    }
     var body = req.body;
     try {
         if (body.maxDistance || body.distanceIncrement) {
@@ -43,7 +45,10 @@ exports.validateReqestBody = (req, res, next) => {
             }
         }
     } catch(err) {
-        res.status(500).send(err.message);
+        console.error(err);
+        req.error = true;
+        req.payload = err.message;
+        next();
     }
     next();
 }

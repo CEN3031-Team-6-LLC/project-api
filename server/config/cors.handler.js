@@ -12,5 +12,7 @@ exports.CORS_handshake = function(req, res) {
 
 exports.CORS_respond = function(req, res) {
     res.header("Access-Control-Allow-Origin", process.env.ALLOWED_UI_DOMAINS || config.allowed_ui_domains);
+    if (req.error)
+        res.status(500);
     res.send(req.payload);
 }

@@ -3,6 +3,10 @@ var Nuclide = require('../models/Nuclide.schema'),
     NuclideDoses = require('../models/NuclideDoses.schema');
 
 exports.resolveNuclideData = async function(req, res, next) {
+    if (req.error) {
+        next();
+        return;
+    }
     var effectiveDose = await (await NuclideDoses.find({
         isotop: req.body.isotop,
         lung_class: req.body.lungClass
@@ -16,6 +20,10 @@ exports.resolveNuclideData = async function(req, res, next) {
 }
 
 exports.calculateGeneralPlume = async function(req, res, next) {
+    if (req.error) {
+        next();
+        return;
+    }
     var delta = req.body.distanceIncrement || 1;
     const maxX = req.body.maxDistance || 10000;
     var x = delta;
@@ -44,6 +52,10 @@ exports.calculateGeneralPlume = async function(req, res, next) {
 };
 
 exports.calculateFire = function(req, res, next) {
+    if (req.error) {
+        next();
+        return;
+    }
     const delta = req.body.distanceIncrement || 1;
     const maxX = req.body.maxDistance || 10000;
     var x = delta;
