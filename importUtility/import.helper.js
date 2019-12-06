@@ -84,7 +84,7 @@ const startImport = (filename, entity, removePreviousEntries) => {
 }
 
 const startImportUtility = async() => {
-    if (process.argv < 4) {
+    if (process.argv.length < 4) {
         console.error("Filename and entity type should be provided!");
         process.exit(1);
     }
