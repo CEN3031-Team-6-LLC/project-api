@@ -26,7 +26,7 @@ exports.calculateGeneralPlume = async function(req, res, next) {
     }
     var delta = req.body.distanceIncrement || 1;
     const maxX = req.body.maxDistance || 10000;
-    var x = delta;
+    var x = 1;
     var data = [];
     for (x; x <= maxX; x += delta) {
         var C = engine.engine.gaussian(
@@ -58,7 +58,7 @@ exports.calculateFire = function(req, res, next) {
     }
     const delta = req.body.distanceIncrement || 1;
     const maxX = req.body.maxDistance || 10000;
-    var x = delta;
+    var x = 1;
     var data = [];
     for (x; x <= maxX; x += delta) {
         var C = engine.engine.gaussian(
