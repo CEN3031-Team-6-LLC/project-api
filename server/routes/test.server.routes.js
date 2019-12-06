@@ -1,5 +1,5 @@
 var express = require('express'),
-    controller = require('../controllers/test.server.controller.js'),
+    controller = require('../controllers/test.server.controller'),
     router = express.Router();
 
 router.route('/')

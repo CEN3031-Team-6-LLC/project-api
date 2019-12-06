@@ -27,10 +27,6 @@ const numericalFields = [
 ];
 
 exports.validateReqestBody = (req, res, next) => {
-    if (req.error) {
-        next();
-        return;
-    }
     var body = req.body;
     try {
         // general validations
@@ -66,10 +62,7 @@ exports.validateReqestBody = (req, res, next) => {
         // assigning parsed body back to request
         req.body = body;
     } catch(err) {
-        console.error(err);
-        req.error = true;
-        req.payload = err.message;
-        next();
+        next(err);
     }
     next();
 }

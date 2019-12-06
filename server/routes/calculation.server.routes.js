@@ -1,6 +1,5 @@
 var express = require("express"),
-  controller = require("../controllers/calculation.server.controller.js"),
-  cors_handler = require("../config/cors.handler.js"),
+  controller = require("../controllers/calculation.server.controller"),
   validations = require("../controllers/validations.server.controller"),
   router = express.Router();
 
@@ -9,17 +8,13 @@ router
   .post(
     validations.validateReqestBody,
     controller.resolveNuclideData,
-    controller.calculateFire,
-    cors_handler.CORS_respond)
-  .options(cors_handler.CORS_handshake);
+    controller.calculateFire);
 
 router
   .route("/plume")
   .post(
     validations.validateReqestBody,
     controller.resolveNuclideData,
-    controller.calculateGeneralPlume,
-    cors_handler.CORS_respond)
-  .options(cors_handler.CORS_handshake);
+    controller.calculateGeneralPlume);
 
 module.exports = router;

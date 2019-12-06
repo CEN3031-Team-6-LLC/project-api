@@ -6,7 +6,7 @@ const fields = [
         value: 'distance'
     },
     {
-        label: 'Nuclide dose',
+        label: 'Nuclide dose (Ci or Bq)',
         value: 'dose'
     },
     {
@@ -14,25 +14,21 @@ const fields = [
         value: 'concentration'
     },
     {
-        label: 'Arrival time',
+        label: 'Arrival time (s)',
         value: 'arrivalTime'
     }
 ];
 
 exports.convertPayloadToExcel = function(req, res, next) {
-    if (req.error) {
-        next();
-        return;
-    }
+    var fieldsCopy = [];
+    fields.forEach(field => fieldsCopy.push(field));
+    fieldsCopy[0].label = 'Distance from the source ' + (req.body.unitSystem == 'metric' ? '(m)' : '(ft)');
     try {
-        var data = parse(req.payload, { fields: fields });
+        var data = parse(req.payload, { fields: fieldsCopy });
         res.attachment(`export_${(new Date()).getTime()}.csv`);
         req.payload = data;
     } catch (err) {
-        console.error(err);
-        req.error = true;
-        req.payload = err.message;
-        next();
+        next(err);
     }
     next();
 }

@@ -1,4 +1,4 @@
-const config = process.env.NODE_ENV == "PROD" ? {} : require("./config.js");
+const config = process.env.NODE_ENV == "PROD" ? {} : require("../config/config");
 
 // middleware to configure CORS handling
 
@@ -12,8 +12,5 @@ exports.CORS_handshake = function(req, res) {
 
 exports.CORS_respond = function(req, res) {
     res.header("Access-Control-Allow-Origin", process.env.ALLOWED_UI_DOMAINS || config.allowed_ui_domains);
-    if (req.error)
-        res.status(500).send(req.payload);
-    else
-        res.send(req.payload);
+    res.send(req.payload);
 }
