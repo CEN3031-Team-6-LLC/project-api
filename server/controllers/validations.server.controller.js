@@ -31,7 +31,7 @@ exports.validateReqestBody = (req, res, next) => {
     try {
         // general validations
         if (!body.maxDistance || !body.distanceIncrement)
-            throw new Error("Both or neither maxDistance and distanceIncrement should be provided!");
+            throw new Error("Both maxDistance and distanceIncrement should be provided!");
         if (!body.unitSystem)
             throw new Error("Please specify which unit system ('metric' or 'imperial') is used for length units");
         // parsing numerical values
