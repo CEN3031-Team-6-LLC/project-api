@@ -89,9 +89,14 @@ const startImportUtility = async() => {
         process.exit(1);
     }
     
-    await mongoose.connect(config.db.uri, { useNewUrlParser: true });
-    await mongoose.set('useCreateIndex', true);
-    await mongoose.set('useFindAndModify', false);
+    await mongoose.connect(
+        config.db.uri,
+        {
+            useNewUrlParser: true, 
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false
+        });
     
     startImport(process.argv[2], entities[process.argv[3]], (process.argv.length > 4) ? (process.argv[4] == 'true') : true);
 }
