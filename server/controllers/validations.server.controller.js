@@ -38,15 +38,17 @@ exports.validateReqestBody = (req, res, next) => {
             throw new Error("Both or neither maxDistance and distanceIncrement should be provided!");
         if (!body.unitSystem)
             throw new Error("Please specify which unit system ('metric' or 'imperial') is used for length units");
+        // parsing numerical values
+        numericalFields.forEach(field => {
+            body[field] = parseFloat(body[field]+'');
+        });
         // unit validations
         if ((typeof body.maxDistance != 'number' && isNaN(parseFloat(body.maxDistance))) || (typeof body.distanceIncrement != 'number' && isNaN(parseFloat(body.distanceIncrement))))
             throw new Error("Both maxDistance and distanceIncrement should be numbers!");
         if (body.maxDistance/body.distanceIncrement > 10000)
             throw new Error("Either maxDistance is too big or distanceIncrement is too small!\nTechnical limitations start impacting Calculation engine when calculating more than 10000 points.");
-        // parsing numerical values
-        numericalFields.forEach(field => {
-            body[field] = parseFloat(body[field]+'');
-        });
+        if (body.maxDistance/body.distanceIncrement < 2)
+            throw new Error("Nothing to calculate with the provided maxDistance and distanceIncrement!");
         // required fields checks
         if (req.url.includes("fire")) {
             requiredFireFields.forEach(field => {
