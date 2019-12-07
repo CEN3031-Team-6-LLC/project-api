@@ -58,25 +58,35 @@ const startImport = (filename, entity, removePreviousEntries) => {
             documentsToSave.push(element);
         })
         .on('end', async () => {
-            console.log('CSV file successfully processed.');
+            console.log(`\nCSV file successfully processed. Retrieved ${documentsToSave.length} new documents to save.`);
             if (removePreviousEntries) {
                 await entity.deleteMany({});
-                console.log('Removed old entities.');
+                console.log('\nRemoved old documents.');
             }
-            console.log("Persisting...");
-            var loader;
-            for (var i = 0; i < documentsToSave.length; i++) {
-                loader = "";
-                await documentsToSave[i].save();
-                for (var j = 0; j < 50; j++) {
-                    if (((i + 1)/documentsToSave.length) * 50 >= (j + 1))
-                        loader += "=";
-                    else loader += " ";
+            console.log("\nPersisting...");
+            var loader, i;
+            try {
+                for (i = 0; i < documentsToSave.length; i++) {
+                    loader = "";
+                    await documentsToSave[i].save();
+                    for (var j = 0; j < 50; j++) {
+                        if (((i + 1)/documentsToSave.length) * 50 >= (j + 1))
+                            loader += "=";
+                        else loader += " ";
+                    }
+                    process.stdout.write("\r" + `${i+1} / ${documentsToSave.length} documents saved. [${loader}] ${((i+1)*100/documentsToSave.length).toFixed(2)}%`);
                 }
-                process.stdout.write("\r" + `${i+1} / ${documentsToSave.length} documents saved. [${loader}] ${((i+1)*100/documentsToSave.length).toFixed(2)}%`);
+                console.log("\n\nPersisted new documents!");
+                console.log(`\nTotal number of documents in the ${entity.collection.name} collection is now ${await (entity.countDocuments({}))}.\n`);
+                process.exit(0);
+            } catch (err) {
+                console.log("\n");
+                console.error(err.stack);
+                console.info("\nYou attempted to save a corrupted entry. Please check the names of your columns and ensure that your .csv file doesn't contain empty rows.");
+                console.info(`\n${i} documents were pesrsisted before error was encountered.`);
+                console.log(`\nTotal number of documents in the ${entity.collection.name} collection is now ${await (entity.countDocuments({}))}.\n`);
+                process.exit(1);
             }
-            console.log("\nPersisted new data to DB.");
-            process.exit(0);
     }).on('error', () => {
         console.error("No file found! Please name files accordingly and place them in this directory.");
         process.exit(1);
