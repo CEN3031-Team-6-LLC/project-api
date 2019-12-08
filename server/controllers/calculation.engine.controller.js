@@ -145,8 +145,12 @@ const adjustment = function(C, lambda, arrivalTime) {
     return C * Math.exp(-1 * lambda * arrivalTime);
 }
 
-const dose = function(C, effectiveDose, halfLife, windSpeed, x) {
-    return adjustment(C, lambda(halfLife), arrivalTime(windSpeed, x)) * 4.17E-04 * effectiveDose;
+const dose = function(Cadj, effectiveDose) {
+    return Cadj * 4.17E-04 * effectiveDose;
 }
 
-exports.engine = { gaussian, dose, arrivalTime };
+const adjustedConcentration = function(C, halfLife, windSpeed, x) {
+    return adjustment(C, lambda(halfLife), arrivalTime(windSpeed, x));
+}
+
+exports.engine = { gaussian, dose, arrivalTime, adjustedConcentration };

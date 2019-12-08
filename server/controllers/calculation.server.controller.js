@@ -36,11 +36,13 @@ exports.calculateGeneralPlume = async function(req, res, next) {
                 undefined,
                 undefined,
                 false);
+            
+            var concentrationAdj = engine.engine.adjustedConcentration(C, req.body.halfLife, req.body.windSpeed, x);
 
             data.push({
                 distance: x,
-                concentration: C,
-                dose: engine.engine.dose(C, req.body.effectiveDose, req.body.halfLife, req.body.windSpeed, x),
+                concentration: concentrationAdj,
+                dose: engine.engine.dose(concentrationAdj, req.body.effectiveDose),
                 arrivalTime: engine.engine.arrivalTime(req.body.windSpeed, x)
             });
         }
@@ -68,11 +70,13 @@ exports.calculateFire = function(req, res, next) {
                 req.body.fireCloudTop,
                 req.body.fireRadius,
                 true);
+
+            var concentrationAdj = engine.engine.adjustedConcentration(C, req.body.halfLife, req.body.windSpeed, x);
         
             data.push({
                 distance: x,
-                concentration: C,
-                dose: engine.engine.dose(C, req.body.effectiveDose, req.body.halfLife, req.body.windSpeed, x),
+                concentration: concentrationAdj,
+                dose: engine.engine.dose(concentrationAdj, req.body.effectiveDose),
                 arrivalTime: engine.engine.arrivalTime(req.body.windSpeed, x)
             });
         }
