@@ -3,7 +3,7 @@
  * 
  *  Description: This is a validation middleware for export and calculate endpoints.
  * 
- *  UPDATED LOG:
+ *  UPDATE LOG:
  *  Jeremy Green - updated validation conditions for plume
  */
 
