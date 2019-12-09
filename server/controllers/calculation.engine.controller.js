@@ -1,3 +1,11 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: This is the calculation engine of the application.
+ *  All modelling is happening here. Names of the functions are mostly
+ *  self-explanatory.
+ */
+
 const AdYCoefficients = {
     "A": 0.22,
     "B": 0.16,

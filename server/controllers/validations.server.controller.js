@@ -1,3 +1,9 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: This is a validation middleware for export and calculate endpoints.
+ */
+
 const requiredPlumeFields = [
     "sourceAmount",
     "windSpeed",

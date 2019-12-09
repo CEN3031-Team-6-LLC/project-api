@@ -1,7 +1,14 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: This is a calculation middleware for calculate and export requests.
+ */
+
 const engine = require("./calculation.engine.controller");
 var Nuclide = require('../models/Nuclide.schema'),
     NuclideDoses = require('../models/NuclideDoses.schema');
 
+// middleware to get nuclide information for calculations
 exports.resolveNuclideData = async function(req, res, next) {
     try {
         var effectiveDose = await (await NuclideDoses.find({
@@ -19,6 +26,7 @@ exports.resolveNuclideData = async function(req, res, next) {
     next();
 }
 
+// calculation middleware for plume
 exports.calculateGeneralPlume = async function(req, res, next) {
     try {
         var delta = req.body.distanceIncrement || 1;
@@ -54,6 +62,7 @@ exports.calculateGeneralPlume = async function(req, res, next) {
     next();
 };
 
+// calculation middleware for fire
 exports.calculateFire = function(req, res, next) {
     try {
         const delta = req.body.distanceIncrement || 1;
