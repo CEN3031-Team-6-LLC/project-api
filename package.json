@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "mocha server/tests/routes.server.test.js && mocha server/tests/persistance.server.test.js"
+    "test": "mocha server/tests/server.test.js"
   },
   "devDependencies": {
     "chai": "^4.2.0",
