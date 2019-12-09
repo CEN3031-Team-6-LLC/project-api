@@ -1,3 +1,9 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: Express server configuration. Here all middlewares are registered.
+ */
+
 var path = require('path'),  
     express = require('express'),
     morgan = require('morgan'),
@@ -11,37 +17,40 @@ var path = require('path'),
 
 module.exports.init = function() {
 
-  //initialize app
+  //initialize express server
   var app = express();
 
+  // set request logging middleware
   app.use(morgan('dev'));
 
+  // set JSON-string to the object parser middleware for request bodies
   app.use(bodyParser.json());
 
+  // serve a static html page when the server is accessed outside of REST-full API endpoints
   app.use('/', express.static(__dirname + '/../../client'));
 
-  // global options handshake cors handler
+  // set global options handshake cors handler
   app.options('/api/*', cors_handler.CORS_handshake);
 
-  // test api
+  // set test endpoints
   app.use('/api/test', testRouter);
 
-  // calculations
+  // set calculations endpoints
   app.use('/api/calculate', calculationRouter);
 
-  // exports
+  // set exports endpoints
   app.use('/api/export', exportRouter);
 
-  // querying data
+  // set nuclides endpoints for nuclide data querying
   app.use('/api/nuclides', nuclidesController);
 
-  // global response cors handler
+  // set global response cors handler
   app.use('/api/*', cors_handler.CORS_respond);
 
-  //global error handler
+  // set global error handler
   app.use(error_handler.handle);
 
-  // if don't know what to do - return index page and pretend that's expected
+  // if don't know what to do - return static index page and pretend that's expected
   app.all('/*', function(req, res) {
     res.sendFile(path.resolve('client/index.html'));
   });

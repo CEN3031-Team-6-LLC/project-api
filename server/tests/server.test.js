@@ -1,3 +1,9 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: Unit test cases for endpoints and MongoDB ORM models.
+ */
+
 const should = require('should'),
     request = require('supertest'),
     mongoose = require('mongoose'),

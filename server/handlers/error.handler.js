@@ -1,6 +1,11 @@
-const config = process.env.NODE_ENV == "PROD" ? {} : require("../config/config");
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: A global error handler, if error is thrown by any middleware
+ *  it will be caught here, logged and forwarded to the UI with 500 status.
+ */
 
-// middleware to handle api errors
+const config = process.env.NODE_ENV == "PROD" ? {} : require("../config/config");
 
 exports.handle = function(err, req, res, next) {
     console.error(err.stack);

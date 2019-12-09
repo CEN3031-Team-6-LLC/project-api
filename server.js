@@ -1,6 +1,14 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: Entry point of the application. Configures clustering for multiprocessing,
+ *  connects to the MongoDB and launches worker servers.
+ */
+
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const mongoose = require('mongoose');
+// Depending on the environment either get configuration from config file or from environment itself
 const config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/config');
 
 (async () => { 
@@ -15,7 +23,9 @@ const config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/co
             cluster.fork();
         }
 
+        // listen to workers exiting
         cluster.on('exit', (worker, code, signal) => {
+            // if worker process exited - log and fork a new worker process
             console.log(`Worker thread ${worker.process.pid} died with code ${code}. Respawning...\n`);
             cluster.fork();
         });
@@ -30,8 +40,8 @@ const config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/co
                 useFindAndModify: false
             });
 
-        // instantiating server instance on each workers
-        // servers share the same port though, so we are good
+        // instantiating server instance on each worker
+        // FYI: worker servers share the same port
         var app = require('./server/config/app');
         app.start();
     }
