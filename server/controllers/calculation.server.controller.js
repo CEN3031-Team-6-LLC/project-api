@@ -23,12 +23,13 @@ exports.calculateGeneralPlume = async function(req, res, next) {
     try {
         var delta = req.body.distanceIncrement || 1;
         const maxX = req.body.maxDistance || 10000;
-        var x = 1;
+        var x = req.body.distanceIncrement <= 1 ? 1 : 0;
         var data = [];
         for (x; x <= maxX; x += delta) {
+            x = parseFloat(x.toFixed(2));
             var C = engine.engine.gaussian(
                 req.body.stability.toUpperCase(),
-                x,
+                (x === 0 ? 1 : x),
                 req.body.receptorHeight,
                 req.body.releaseHeight,
                 req.body.windSpeed,
@@ -37,13 +38,13 @@ exports.calculateGeneralPlume = async function(req, res, next) {
                 undefined,
                 false);
             
-            var concentrationAdj = engine.engine.adjustedConcentration(C, req.body.halfLife, req.body.windSpeed, x);
+            var concentrationAdj = engine.engine.adjustedConcentration(C, req.body.halfLife, req.body.windSpeed, (x === 0 ? 1 : x));
 
             data.push({
-                distance: x,
+                distance: (x === 0 ? 1 : x),
                 concentration: concentrationAdj,
                 dose: engine.engine.dose(concentrationAdj, req.body.effectiveDose),
-                arrivalTime: engine.engine.arrivalTime(req.body.windSpeed, x)
+                arrivalTime: engine.engine.arrivalTime(req.body.windSpeed, (x === 0 ? 1 : x))
             });
         }
         req.payload = data;
@@ -57,12 +58,13 @@ exports.calculateFire = function(req, res, next) {
     try {
         const delta = req.body.distanceIncrement || 1;
         const maxX = req.body.maxDistance || 10000;
-        var x = 1;
+        var x = req.body.distanceIncrement <= 1 ? 1 : 0;
         var data = [];
         for (x; x <= maxX; x += delta) {
+            x = parseFloat(x.toFixed(2));
             var C = engine.engine.gaussian(
                 req.body.stability.toUpperCase(),
-                x,
+                (x === 0 ? 1 : x),
                 req.body.receptorHeight,
                 undefined,
                 req.body.windSpeed,
@@ -71,13 +73,13 @@ exports.calculateFire = function(req, res, next) {
                 req.body.fireRadius,
                 true);
 
-            var concentrationAdj = engine.engine.adjustedConcentration(C, req.body.halfLife, req.body.windSpeed, x);
+            var concentrationAdj = engine.engine.adjustedConcentration(C, req.body.halfLife, req.body.windSpeed, (x === 0 ? 1 : x));
         
             data.push({
-                distance: x,
+                distance: (x === 0 ? 1 : x),
                 concentration: concentrationAdj,
                 dose: engine.engine.dose(concentrationAdj, req.body.effectiveDose),
-                arrivalTime: engine.engine.arrivalTime(req.body.windSpeed, x)
+                arrivalTime: engine.engine.arrivalTime(req.body.windSpeed, (x === 0 ? 1 : x))
             });
         }
         req.payload = data;
