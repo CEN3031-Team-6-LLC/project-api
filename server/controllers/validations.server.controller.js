@@ -2,6 +2,9 @@
  *  Author: Alexey Makarevitch
  * 
  *  Description: This is a validation middleware for export and calculate endpoints.
+ * 
+ *  UPDATED LOG:
+ *  Jeremy Green - updated validation conditions for plume
  */
 
 const requiredPlumeFields = [
