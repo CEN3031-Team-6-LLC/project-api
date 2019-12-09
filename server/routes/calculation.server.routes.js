@@ -1,3 +1,9 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: This is a router for calculate endpoints.
+ */
+
 var express = require("express"),
   controller = require("../controllers/calculation.server.controller"),
   validations = require("../controllers/validations.server.controller"),

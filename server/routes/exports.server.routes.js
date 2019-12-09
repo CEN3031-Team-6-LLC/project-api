@@ -1,3 +1,9 @@
+/**
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: This is a router for export endpoints.
+ */
+
 var express = require("express"),
     calcController = require("../controllers/calculation.server.controller"),
     jsonToExcelParser = require("../controllers/excelDataParser.server.controller"),

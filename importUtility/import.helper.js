@@ -1,5 +1,7 @@
 /**
- * This is a helper script to upload new data into DB.
+ *  Author: Alexey Makarevitch
+ * 
+ *  Description: This is a helper script to upload new data into DB.
  * 
  * You have following tables: 
  * 1) nuclides and their half-lives: Nuclide
