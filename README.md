@@ -1,9 +1,9 @@
 # HotSpot RESTful project-api
-###What the app does: 
+### What the app does: 
 
 The app our group has been tasked to design for our client [Fernando J Aluzzi - Lawrence Livermore National Laboratory], will be used to analyze and predict the radiological health effects from the atmospheric dispersion of radionuclide sources in both how they spread from a specific point and their concentration at some distance away from the release point. Agents in the field can use this tool as a quick estimate of these effects and have the option of updating scenario information based on real time data on the release scenario or actual measurements taken in the field. The app will use both a standard and Modified form of the Gaussian Atmospheric Dispersion Equation to calculate the concentration and spread of said phenomenon. 
 
-###How the app is used: 
+### How the app is used: 
 
 Agents in the field must first choose one of the two scenarios, General Plume or General Fire Following that, depending on their choice, they will input values for Height of the radionuclide source or Radius and Cloud Top for fire. This is then finalized with the inputting of a Wind Speed, Receptor Distance x and z, and a choice of Atmospheric Stability. The app will also be responsible for numeric validation and range checking on all user supplied inputs in order to keep the values in an appropriate range for generating suitable outputs. Once our app has calculated the concentration from the given inputs, it will generate both the calculated text values and a graphical output showing continuous concentrations.  
 
