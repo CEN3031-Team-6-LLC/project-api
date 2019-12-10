@@ -8,7 +8,7 @@ const should = require('should'),
     request = require('supertest'),
     mongoose = require('mongoose'),
     express = require('../config/express')
-    config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/config');
+    config = process.env.NODE_ENV == "PROD" ? {} : require('../config/config');
 
 var Nuclide = require('../models/Nuclide.schema'),
     NuclideDoses = require('../models/NuclideDoses.schema'),
