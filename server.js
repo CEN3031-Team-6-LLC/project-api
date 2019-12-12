@@ -10,6 +10,8 @@ const numCPUs = require('os').cpus().length;
 const mongoose = require('mongoose');
 // Depending on the environment either get configuration from config file or from environment itself
 const config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/config');
+// Number of worker respawn attempts
+const retryRespawnTimes = process.env.RESTART_ATTEMPTS || config.restart_attepmts;
 
 (async () => { 
     if (cluster.isMaster) {
@@ -24,10 +26,17 @@ const config = process.env.NODE_ENV == "PROD" ? {} : require('./server/config/co
         }
 
         // listen to workers exiting
+        var respawnCounter = 0;
         cluster.on('exit', (worker, code, signal) => {
             // if worker process exited - log and fork a new worker process
+            respawnCounter++;
             console.log(`Worker thread ${worker.process.pid} died with code ${code}. Respawning...\n`);
             cluster.fork();
+            // ...until maximum number of retries is exceeded, then kill the app.
+            if (respawnCounter > retryRespawnTimes) {
+                console.error(`Exceeded maximum of ${retryRespawnTimes} restart attempts! Something is wrong, please check logs before trying to restart the server again!\n`);
+                process.exit(1);
+            }
         });
     } else {
         //connect worker to database
