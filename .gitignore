@@ -2,3 +2,5 @@ node_modules/*
 server/config/config.js
 package-lock.json
 importUtility/*.csv
+.nyc_output
+coverage
